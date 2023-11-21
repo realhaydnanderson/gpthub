@@ -7,12 +7,21 @@ import Navbar from '../components/navbar';
 
 
 function AddGPT() {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [url, setUrl] = useState('');
+    const [error, setError] = useState('');
 
-  const handleSubmitReview = () => {
-    
-    // Here, you can also add additional logic to handle the submission,
-    // such as sending the data to a server or showing a confirmation message.
-  };
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (!url.includes('chat.openai.com')) {
+        setError('URL must contain "chat.openai.com".');
+        return;
+      }
+      setError(''); // Clear any previous errors
+      console.log({ name, description, url });
+      // Additional form submission logic...
+    };
 
 
   return (
@@ -27,12 +36,38 @@ function AddGPT() {
 
 
             <div className="container mx-auto pt-20 p-4">
-  <div className="w-full max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-xl border border-gray-200">
-    {/*Main content */}
-
-
+                
+        <div className="w-full max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-xl border border-gray-200">
+        {error && (
+  <div className={`bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 fade-in`} role="alert">
+    <strong className="font-bold">Error: </strong>
+    <span className="block sm:inline">{error}</span>
   </div>
-</div>
+)}
+          <form onSubmit={handleSubmit}>
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">Add New Chatbot</h1>
+<h2 className="text-xl text-center text-gray-600 mb-2">Enter Chatbot Details</h2>
+
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+              <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">Description</label>
+              <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            </div>
+            <div className="mb-6">
+              <label htmlFor="url" className="block text-gray-700 text-sm font-bold mb-2">URL</label>
+              <input type="text" id="url" value={url} onChange={(e) => setUrl(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            </div>
+            <div className="flex items-center justify-between">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Add Chatbot
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
 
 <div className="absolute inset-x-0 top-[calc(80%-13rem)] bottom-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:bottom-80" aria-hidden="true">
     <div className="relative left-1/2 aspect-[1155/678] w-1/2 -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-3/4"
