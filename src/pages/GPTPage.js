@@ -145,7 +145,7 @@ function GPTPage() {
 
     <div className="mt-6 text-center">
       <a href={chatbot?.link} target="_blank" rel="noopener noreferrer">
-        <button className="bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-2 px-4 rounded transition duration-300">
+        <button style={{ background: 'linear-gradient(to bottom right, #fdc5f5, #72ddf7)' }} className="text-white font-bold py-2 px-4 rounded mt-2">
           Visit
         </button>
       </a>

@@ -62,11 +62,11 @@ const ListPage = () => {
             </div>
             <div>
                 {renderRating(item.rating)}
-                <button style={{ background: 'linear-gradient(to bottom right, #fdc5f5, #72ddf7)' }} className="text-white font-bold py-2 px-4 rounded mt-2">
-                    <a href={"/chatbot/" + item.slug} target="_blank" rel="noopener noreferrer">
-                        Visit
-                    </a>
-                </button>
+                <a href={"/chatbot/" + item.slug} target="_blank" rel="noopener noreferrer">
+                    <button style={{ background: 'linear-gradient(to bottom right, #fdc5f5, #72ddf7)' }} className="text-white font-bold py-2 px-4 rounded mt-2">
+                            Visit 
+                    </button>
+                </a>
             </div>
         </li>
     );
