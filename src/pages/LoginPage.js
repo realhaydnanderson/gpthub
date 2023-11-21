@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import supabase from '../supabase/supabaseClient';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext'; // Adjust the path as needed
-
+import Navbar from '../components/navbar';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -32,34 +32,7 @@ const LoginPage = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen">
-            <header className="absolute inset-x-0 top-0 z-50">
-                <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-                    <div className="flex lg:flex-1">
-                        <a href="#" className="-m-1.5 p-1.5">
-                            <span className="">GPTHub</span>
-                            {/* <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" /> */}
-                        </a>
-                    </div>
-                    <div className="flex lg:hidden">
-                        {/* Mobile menu button */}
-                        {/* Placeholder for the actual functionality */}
-                        
-                    </div>
-                    <div className=" flex gap-x-12">
-                        <a href="/list" className="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-                        <a href="/account" className="text-sm font-semibold leading-6 text-gray-900">Account</a>
-                    </div>
-                    <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                   
-                    </div>
-                </nav>
-
-                {/* Mobile menu, shown/hidden based on state */}
-                <div className="lg:hidden">
-                    {/* Placeholder for actual mobile menu items */}
-                    
-                </div>
-            </header>
+            <Navbar/>
             {/* Background shapes */}
             <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
     <div className="relative left-1/2 aspect-[1155/678] w-1/2 -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-3/4"

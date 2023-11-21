@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../AuthContext';
 import { Navigate } from 'react-router-dom';
 import supabase from '../supabase/supabaseClient';
+import Navbar from '../components/navbar';
 
 const AccountPage = () => {
     const { user, setUser, loading } = useAuth();
@@ -28,6 +29,7 @@ const AccountPage = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen">
+          <Navbar/>
         {/* Background shapes */}
         <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
 <div className="relative left-1/2 aspect-[1155/678] w-1/2 -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-3/4"

@@ -1,34 +1,10 @@
 import React from 'react';
+import Navbar from '../components/navbar';
 
 const HomePage = () => {
     return (
         <div className="bg-white">
-            <header className="absolute inset-x-0 top-0 z-50">
-                <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-                    <div className="flex lg:flex-1">
-                        <a href="#" className="-m-1.5 p-1.5">
-                            <span className="">GPTHub</span>
-                            {/* <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" /> */}
-                        </a>
-                    </div>
-                    <div className="flex lg:hidden">
-                        {/* Mobile menu button */}
-                        {/* Placeholder for the actual functionality */}
-                    </div>
-                    <div className="hidden lg:flex lg:gap-x-12">
-                        <a href="/list" className="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-                        <a href="/account" className="text-sm font-semibold leading-6 text-gray-900">Account</a>
-                    </div>
-                    <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in →</a>
-                    </div>
-                </nav>
-
-                {/* Mobile menu, shown/hidden based on state */}
-                <div className="lg:hidden">
-                    {/* Placeholder for actual mobile menu items */}
-                </div>
-            </header>
+            <Navbar/>
 
             <div className="relative isolate px-6 pt-14 lg:px-8">
                 {/* Background shapes */}

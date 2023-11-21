@@ -1,6 +1,7 @@
 // gpt-directory/src/pages/Register.js
 import React, { useState } from 'react';
 import supabase from '../supabase/supabaseClient';
+import Navbar from '../components/navbar';
 
 const RegistrationPage = () => {
   const [email, setEmail] = useState('');
@@ -28,6 +29,7 @@ const RegistrationPage = () => {
   return (
 
 <div className="flex items-center justify-center min-h-screen">
+  <Navbar/>
 {/* Background shapes */}
 <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
     <div className="relative left-1/2 aspect-[1155/678] w-1/2 -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-3/4"
