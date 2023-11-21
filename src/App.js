@@ -16,6 +16,7 @@ import SearchPage from './pages/GPTSearchPage';
 import ListPage from './pages/ListPage';
 import UserProfile from './pages/UserProfile';
 import GPTPage from './pages/GPTPage';
+import AddGPT from './pages/AddGPTPage';
 import './App.css';
 
 function App() {
@@ -27,6 +28,13 @@ function App() {
         <Route path="/list" element={<ListPage/>}></Route>
         <Route path="/user/:slug" element={<UserProfile />} />
         <Route path="/chatbot/:slug" element={<GPTPage />} />
+
+        <Route path="/addgpt" element={
+          <ProtectedRoute>
+            <AddGPT/>
+          </ProtectedRoute>
+        } />
+
         <Route path="/register" element={<RegistrationPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/test" element={<AccessControlTest />}></Route>

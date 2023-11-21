@@ -23,7 +23,7 @@ const Navbar = () => {
                         <a href="/list" className="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
-                    {user ? <a href="/add-gpt" className="text-sm font-semibold leading-6 text-gray-900">Add GPT</a> : null}
+                    {user ? <a href="/addgpt" className="text-sm font-semibold leading-6 text-gray-900">Add GPT</a> : null}
                         {user ? <a href="/account" className="text-sm font-semibold leading-6 text-gray-900">Account</a> : <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in →</a>}
                     </div>
                 </nav>
