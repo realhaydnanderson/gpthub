@@ -3,7 +3,18 @@ import { useAuth } from '../AuthContext';
 import supabase from '../supabase/supabaseClient';
 
 const Navbar = () => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+          await supabase.auth.signOut();
+          setUser(null); // Set user to null to update context
+          // Optionally, navigate to the login page or show a message
+        } catch (error) {
+          console.error('Error during logout:', error.message);
+          // Handle any logout errors here
+        }
+      };
 
     return (
             <header className="absolute inset-x-0 top-0 z-50">
@@ -25,6 +36,7 @@ const Navbar = () => {
                     <div className="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
                     {user ? <a href="/addgpt" className="text-sm font-semibold leading-6 text-gray-900">Add GPT</a> : null}
                         {user ? <a href="/account" className="text-sm font-semibold leading-6 text-gray-900">Account</a> : <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in →</a>}
+                        {user ? <a href="#" onClick={handleLogout} className="text-sm font-semibold leading-6 text-gray-900">Logout</a> : null}
                     </div>
                 </nav>
 
