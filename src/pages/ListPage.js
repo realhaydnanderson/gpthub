@@ -85,7 +85,7 @@ const ListPage = () => {
                     {/* Featured Section */}
                     <div className="mb-8">
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">Featured GPTs</h2>
-                        <ul className="grid grid-cols-2 gap-4">
+                        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             {featuredItems.map(renderItem)}
                         </ul>
                     </div>
@@ -93,7 +93,7 @@ const ListPage = () => {
                     {/* Regular Section */}
                     <div>
                         <h2 className="text-2xl font-bold text-gray-700 mb-4">All GPTs</h2>
-                        <ul className="grid grid-cols-3 gap-4">
+                        <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                             {regularItems.map(renderItem)}
                         </ul>
                     </div>
