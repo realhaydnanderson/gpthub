@@ -47,17 +47,20 @@ function GPTPage() {
   const [chatbot, setChatbot] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [ratings, setRatings] = useState({
-    Complexity: 0,
-    "Ease of Use": 0,
-    "Added Value": 0,
-  });
+  const [ratings, setRatings] = useState({});
+  const [reviewComment, setReviewComment] = useState("");
+
 
   const { user } = useAuth();
 
   const handleRating = (category, rating) => {
     setRatings({ ...ratings, [category]: rating });
   };
+
+  const handleReviewCommentChange = (e) => {
+    setReviewComment(e.target.value);
+  };
+  
 
   useEffect(() => {
     const fetchChatbot = async () => {
@@ -85,13 +88,15 @@ function GPTPage() {
   if (error) return <div>Error: {error}</div>;
 
   const categories = [
-    { name: "Complexity", stars: 4, rating: 4.5 },
-    { name: "Ease of Use", stars: 3, rating: 3.0 },
-    { name: "Added Value", stars: 5, rating: 4.9 },
+    { name: "Innovativeness", stars: 4, rating: 4.5 },
+    { name: "User-Friendliness", stars: 3, rating: 3.0 },
+    { name: "Functionality", stars: 5, rating: 4.9 },
+    { name: "Value Addition", stars: 5, rating: 4.9 },
   ];
 
   const handleSubmitReview = () => {
     console.log("Submitted Ratings:", ratings);
+    console.log("Submitted comment:", reviewComment);
     // Here, you can also add additional logic to handle the submission,
     // such as sending the data to a server or showing a confirmation message.
   };
@@ -217,6 +222,22 @@ function GPTPage() {
                   onRating={handleRating}
                 />
               ))}
+              <div className="mt-4 mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="reviewComment"
+        >
+          Review Comment
+        </label>
+        <textarea
+          className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+          id="reviewComment"
+          name="reviewComment"
+          rows="4"
+          value={reviewComment}
+          onChange={handleReviewCommentChange}
+        ></textarea>
+      </div>
               <button
                 onClick={handleSubmitReview}
                 className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600"
