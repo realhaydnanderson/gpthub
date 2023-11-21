@@ -2,26 +2,56 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../supabase/supabaseClient'; // Your Supabase client
 import Navbar from '../components/navbar';
-
+import { useAuth } from '../AuthContext';
 
 
 
 function AddGPT() {
+    const { user, accessToken } = useAuth(); // Get the authenticated user from your context
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (!url.includes('chat.openai.com')) {
-        setError('URL must contain "chat.openai.com".');
-        return;
-      }
-      setError(''); // Clear any previous errors
-      console.log({ name, description, url });
-      // Additional form submission logic...
+
+    const sendRequest = async (name, description, url) => {
+        console.log(accessToken);
+        try {
+            const res = await fetch('/api/addgpt', {
+                method: 'POST', // Assuming POST request
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken ? `Bearer ${accessToken}` : ''
+                },
+                body: JSON.stringify({ name, description, url }) // Send data as JSON
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                setSuccess('Chatbot added successfully!'); // Set success message
+                setError(null);
+            } else {
+                throw new Error(data.message || 'Error occurred');
+            }
+        } catch (err) {
+            setError(err.message);
+            setSuccess(''); // Clear any previous success messages
+        }
     };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!url.includes('chat.openai.com')) {
+            setError('URL must contain "chat.openai.com".');
+            return;
+        }
+        setError(''); // Clear any previous errors
+        console.log({ name, description, url });
+    
+        sendRequest(name, description, url); // Pass the form data
+    };
+    
 
 
   return (
@@ -43,6 +73,11 @@ function AddGPT() {
     <strong className="font-bold">Error: </strong>
     <span className="block sm:inline">{error}</span>
   </div>
+)}{success && (
+    <div className={`bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 fade-in`} role="alert">
+        <strong className="font-bold">Success: </strong>
+        <span className="block sm:inline">{success}</span>
+    </div>
 )}
           <form onSubmit={handleSubmit}>
           <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">Add New Chatbot</h1>
