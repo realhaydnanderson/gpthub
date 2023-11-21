@@ -37,16 +37,18 @@ const Navbar = () => {
                         {/* Placeholder for the actual functionality */}
                     </div>
                     <div className="hidden lg:flex lg:gap-x-12">
-                        <a href="/list" className="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
+                        <a href="/list" className="text-lg font-semibold leading-6 text-gray-900">Hub</a>
+                        <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Trending</a>
+                        <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Newsletter</a>
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
-                    {user ? <a href="/addgpt" className="text-sm font-semibold leading-6 text-gray-900">Add GPT</a> : null}
-                        {user ? <a href="/account" className="text-sm font-semibold leading-6 text-gray-900">Account</a> : <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in →</a>}
-                        {user ? <a href="#" onClick={handleLogout} className="text-sm font-semibold leading-6 text-gray-900">Logout</a> : null}
+                    {user ? <a href="/addgpt" className="text-md font-semibold leading-6 text-gray-700">Add GPT</a> : null}
+                        {user ? <a href="/account" className="text-md font-semibold leading-6 text-gray-700">Account</a> : <a href="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in →</a>}
+                        {user ? <a href="#" onClick={handleLogout} className="text-md font-semibold leading-6 text-gray-700">Logout</a> : null}
                     </div>
 
                     {/* ... other navbar content ... */}
-                    <div className="flex lg:hidden">
+                    <div className="flex text-lg lg:hidden">
                     <button onClick={toggleMenu} className="p-2">
                         {/* Placeholder for the hamburger icon */}
                         <span className="sr-only">Menu</span>
@@ -69,15 +71,18 @@ const Navbar = () => {
                 </button>
                 <div className="py-4 overflow-y-auto">
                     {/* Menu items */}
-                    <a href="/list" className="block text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
+                    <a href="/list" className="text-lg font-semibold leading-6 text-gray-900">Hub</a>
+                    <br></br>
+                    <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Trending</a>
+                    <hr className="my-2 border-gray-200" />
                     {user ? (
                         <>
-                            <a href="/addgpt" className="block text-sm font-semibold leading-6 text-gray-900">Add GPT</a>
-                            <a href="/account" className="block text-sm font-semibold leading-6 text-gray-900">Account</a>
-                            <a href="#" onClick={handleLogout} className="block text-sm font-semibold leading-6 text-gray-900">Logout</a>
+                            <a href="/addgpt" className="block text-lg font-semibold leading-6 text-gray-900">Add GPT</a>
+                            <a href="/account" className="block text-lg font-semibold leading-6 text-gray-900">Account</a>
+                            <a href="#" onClick={handleLogout} className="block text-lg font-semibold leading-6 text-gray-900">Logout</a>
                         </>
                     ) : (
-                        <a href="/login" className="block text-sm font-semibold leading-6 text-gray-900">Log in →</a>
+                        <a href="/login" className="block text-lg font-semibold leading-6 text-gray-900">Log in →</a>
                     )}
                 </div>
             </div>
