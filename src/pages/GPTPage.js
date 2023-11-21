@@ -18,7 +18,7 @@ import { useAuth } from '../AuthContext';
   
     return (
       <div className="flex items-center">
-        <div className="text-lg font-bold mr-2">{category.name}:</div>
+        <div className="text-md font-medium text-gray-500 mr-2">{category.name}:</div>
         {[...Array(5)].map((_, index) => (
           <svg
             key={index}
@@ -127,21 +127,26 @@ function GPTPage() {
 
 
 <div className="min-h-screen p-4">
-            <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+    {/* Background shapes */}
+    <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
                     <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                          style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}></div>
                 </div>
+
             <Navbar/>
             {error ? (
                 <p className="text-red-400">Error: {error}</p>
             ) : (
-<div className="container mx-auto pt-20 p-4">
-  <div className="w-full max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-xl border border-gray-200">
-    
-    <div className="bg-gradient-to-r from-indigo-500 to-blue-600 rounded-t-xl p-4 shadow-sm">
-      <h1 className="text-3xl font-bold text-white text-center">{chatbot?.name}</h1>
-      <p className="text-md text-indigo-100 mt-2 text-center">{chatbot?.description}</p>
-    </div>
+<div className="container md:w-2/3 mx-auto pt-20 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          {/* Chatbot Information Column */}
+          <div className="md:w-full p-4 bg-white rounded-xl shadow-xl border border-gray-200">
+  <div className="p-8 text-center">
+              <div className="uppercase tracking-wide text-lg text-indigo-500 font-semibold">{chatbot?.name}</div>
+              <a href={chatbot?.link} className="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{chatbot?.title}</a>
+              <p className="mt-2 text-gray-500">{chatbot?.description}</p>
+            </div>
 
     <div className="mt-6 text-center">
       <a href={chatbot?.link} target="_blank" rel="noopener noreferrer">
@@ -150,10 +155,11 @@ function GPTPage() {
         </button>
       </a>
     </div>
-
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-      <RatingComponent/>
-    </div>
+    
+  </div>
+  <div className="md:w-full p-4 bg-white rounded-xl shadow-xl border border-gray-200">
+            <RatingComponent/>
+          </div>
   </div>
 </div>
 
@@ -176,12 +182,12 @@ function GPTPage() {
           )}
         </div>
       </div>
-
-<div className="absolute inset-x-0 top-[calc(80%-13rem)] bottom-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:bottom-80" aria-hidden="true">
-    <div className="relative left-1/2 aspect-[1155/678] w-1/2 -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:w-3/4"
-         style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}></div>
-</div>
-  
+      <div className="absolute inset-x-0 top-[calc(100%)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+                    <div className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                         style={{ clipPath: 'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)' }}>
+                            
+                         </div>
+                </div>
         </div>
   );
 }
