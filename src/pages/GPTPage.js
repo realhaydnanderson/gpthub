@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import supabase from '../supabase/supabaseClient'; // Your Supabase client
 import Navbar from '../components/navbar';
+import { useAuth } from '../AuthContext';
 
 
 
@@ -46,6 +47,8 @@ function GPTPage() {
     'Ease of Use': 0,
     'Added Value': 0
   });
+
+  const { user } = useAuth();
 
   const handleRating = (category, rating) => {
     setRatings({ ...ratings, [category]: rating });
@@ -158,13 +161,19 @@ function GPTPage() {
 
 <div className="container mx-auto mt-8">
         <div className="w-full max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-xl border border-gray-200">
-          <h2 className="text-2xl font-bold text-center mb-4">Leave a Review</h2>
-          {categories.map(category => (
-            <StarRating key={category.name} category={category} onRating={handleRating} />
-          ))}
-          <button onClick={handleSubmitReview} className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600">
-            Submit Review
-          </button>
+        <h2 className="text-2xl font-bold text-center mb-4">Leave a Review</h2>
+          {user ? (
+            <>
+              {categories.map(category => (
+                <StarRating key={category.name} category={category} onRating={handleRating} />
+              ))}
+              <button onClick={handleSubmitReview} className="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600">
+                Submit Review
+              </button>
+            </>
+          ) : (
+            <p className="text-center text-red-500">You need to be logged in to rate.</p>
+          )}
         </div>
       </div>
 
