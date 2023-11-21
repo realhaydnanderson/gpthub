@@ -28,6 +28,21 @@ const ListPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
   const [loading, setLoading] = useState(true); // State to track loading status
 
+  const handleVisitClick = async (chatbotId) => {
+    try {
+      const { data, error } = await supabase
+        .from('click_tracking') // Replace with your table name
+        .insert([
+          { chatbot_id: chatbotId, user_id: user?.id, source: "search" }
+        ]);
+
+      if (error) throw error;
+      // Optionally, you can do something with the response data
+    } catch (err) {
+      console.error('Error logging click:', err.message);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -70,11 +85,17 @@ const ListPage = () => {
           <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
         </svg>
       ))}
+      { (rating == null) ?
+        <p className="ml-1 text-sm font-medium text-gray-500"> Unrated</p>
+      :
+      <>
       <p className="ml-1 text-sm font-medium text-gray-500">
         {rating.toFixed(2)}
       </p>
       <p className="ml-1 text-sm font-medium text-gray-500">out of</p>
       <p className="ml-1 text-sm font-medium text-gray-500">5</p>
+      </>
+        }
     </div>
   );
 
@@ -99,6 +120,7 @@ const ListPage = () => {
           rel="noopener noreferrer"
         >
           <button
+          onClick={() => handleVisitClick(item.id)}
             style={{
               background: "linear-gradient(to bottom right, #fdc5f5, #72ddf7)",
             }}
@@ -160,7 +182,7 @@ const ListPage = () => {
               </h2>
 
               {loading ? (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {Array(4)
                     .fill()
                     .map((_, i) => (
@@ -168,7 +190,7 @@ const ListPage = () => {
                     ))}
                 </div>
               ) : (
-                <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {regularItems.map(renderItem)}
                 </ul>
               )}

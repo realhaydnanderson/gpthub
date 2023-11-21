@@ -39,6 +39,7 @@ const Navbar = () => {
                     <div className="hidden lg:flex lg:gap-x-12">
                         <a href="/list" className="text-lg font-semibold leading-6 text-gray-900">Hub</a>
                         <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Trending</a>
+                        <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Discover</a>
                         <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Newsletter</a>
                     </div>
                     <div className="hidden lg:flex lg:flex-1 lg:gap-x-12 lg:justify-end">
