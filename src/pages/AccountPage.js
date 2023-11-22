@@ -97,6 +97,7 @@ const AccountPage = () => {
           }}
         ></div>
       </div>
+      <div className="container flex flex-col items-center pt-20 p-4">
       <div className="w-full max-w-lg p-8 space-y-3 rounded-lg shadow-lg bg-white">
         <div className="text-center">
           <div>
@@ -183,7 +184,7 @@ const AccountPage = () => {
         ></div>
       </div>
 
-      
+      </div>
     </div>
   );
 };
