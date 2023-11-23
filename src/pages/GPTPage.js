@@ -43,15 +43,18 @@ const StarRating = ({ category, onRating }) => {
 };
 
 function GPTPage() {
+
   const { slug } = useParams();
   const [chatbot, setChatbot] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [ratings, setRatings] = useState({});
   const [reviewComment, setReviewComment] = useState("");
+  const [success, setSuccess] = useState(null)
+  const [categories, setCategories] = useState({});
 
 
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
 
   const handleRating = (category, rating) => {
     setRatings({ ...ratings, [category]: rating });
@@ -63,42 +66,91 @@ function GPTPage() {
   
 
   useEffect(() => {
-    const fetchChatbot = async () => {
+    const fetchChatbotAndRatings = async () => {
       try {
         setLoading(true);
-        const { data, error } = await supabase
-          .from("gpt_list") // Your table name
+        
+        // Fetch chatbot data
+        const { data: chatbotData, error: chatbotError } = await supabase
+          .from("gpt_list")
           .select("*")
           .eq("slug", slug)
           .single();
 
-        if (error) throw error;
-        setChatbot(data);
+        console.log(chatbotData)
+  
+        if (chatbotError) throw chatbotError;
+        setChatbot(chatbotData);
+  
+        // Fetch average ratings
+        const { data: ratingData, error: ratingError } = await supabase
+          .from("gptlist_averages")
+          .select("*")
+          .eq("gptlist_id", chatbotData.id)
+          .single();
+  
+        // if (ratingError){
+        //     setError(ratingError);
+        // }
+        // Update categories with fetched ratings
+        if(ratingData != null){
+            setCategories([
+            { name: "Innovativeness", rating: ratingData.avg_innovativeness },
+            { name: "User-Friendliness", rating: ratingData.avg_user_friendliness },
+            { name: "Functionality", rating: ratingData.avg_functionality },
+            { name: "Value Addition", rating: ratingData.avg_value_addition },
+            ]);
+        } else {
+            setCategories([
+                { name: "Innovativeness", rating: 0 },
+                { name: "User-Friendliness", rating: 0 },
+                { name: "Functionality", rating: 0 },
+                { name: "Value Addition", rating: 0 },
+                ]);
+        }
+        
+        
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchChatbot();
+  
+    fetchChatbotAndRatings();
   }, [slug]);
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const categories = [
-    { name: "Innovativeness", stars: 4, rating: 4.5 },
-    { name: "User-Friendliness", stars: 3, rating: 3.0 },
-    { name: "Functionality", stars: 5, rating: 4.9 },
-    { name: "Value Addition", stars: 5, rating: 4.9 },
-  ];
-
-  const handleSubmitReview = () => {
+  const handleSubmitReview = async () => {
     console.log("Submitted Ratings:", ratings);
     console.log("Submitted comment:", reviewComment);
     // Here, you can also add additional logic to handle the submission,
     // such as sending the data to a server or showing a confirmation message.
+    console.log(accessToken);
+        try {
+            const res = await fetch('/api/addcomment', {
+                method: 'POST', // Assuming POST request
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken ? `Bearer ${accessToken}` : ''
+                },
+                body: JSON.stringify({ ratings, reviewComment, chatbot_id: chatbot.id }) // Send data as JSON
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                setSuccess('Review Added!'); // Set success message
+                setError(null);
+            } else {
+                throw new Error(data.message || 'Error occurred');
+            }
+        } catch (err) {
+            setError(err.message);
+            setSuccess(''); // Clear any previous success messages
+        }
   };
 
   const handleVisitClick = async () => {
@@ -126,9 +178,8 @@ function GPTPage() {
               <svg
                 key={index}
                 className={`w-4 h-4 ${
-                  index < category.stars ? "text-yellow-300" : "text-gray-300"
+                  index < Math.round(category.rating) ? "text-yellow-300" : "text-gray-300"
                 } me-1`}
-                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
                 viewBox="0 0 22 20"
@@ -137,13 +188,14 @@ function GPTPage() {
               </svg>
             ))}
             <span className="ms-2 text-sm font-medium">
-              {category.rating} out of 5
+              {category.rating.toFixed(1)} out of 5
             </span>
           </div>
         </div>
       ))}
     </div>
   );
+  
 
   return (
     <div className="min-h-screen p-4">
@@ -170,7 +222,7 @@ function GPTPage() {
             {/* Chatbot Information Column */}
             <div className="md:w-full p-4 bg-white rounded-xl shadow-xl border border-gray-200">
               <div className="p-8 text-center">
-                <div className="uppercase tracking-wide text-lg text-indigo-500 font-semibold">
+                <div className="uppercase tracking-wide text-2xl text-indigo-500 font-semibold">
                   {chatbot?.name}
                 </div>
                 <a
@@ -202,7 +254,12 @@ function GPTPage() {
               </div>
             </div>
             <div className="md:w-full p-4 bg-white rounded-xl shadow-xl border border-gray-200">
-              <RatingComponent />
+                {loading ? 
+                <p>Loading...</p>
+                :
+                <RatingComponent />
+                }
+              
             </div>
           </div>
         </div>
