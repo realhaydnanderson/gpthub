@@ -71,20 +71,33 @@ const Navbar = () => {
                     {/* Close icon */}
                 </button>
                 <div className="py-4 overflow-y-auto">
-                    {/* Menu items */}
-                    <a href="/list" className="text-lg font-semibold leading-6 text-gray-900">Hub</a>
-                    <br></br>
-                    <a href="#" className="text-lg font-semibold leading-6 text-gray-900">Trending</a>
-                    <hr className="my-2 border-gray-200" />
-                    {user ? (
-                        <>
-                            <a href="/addgpt" className="block text-lg font-semibold leading-6 text-gray-900">Add GPT</a>
-                            <a href="/account" className="block text-lg font-semibold leading-6 text-gray-900">Account</a>
-                            <a href="#" onClick={handleLogout} className="block text-lg font-semibold leading-6 text-gray-900">Logout</a>
-                        </>
-                    ) : (
-                        <a href="/login" className="block text-lg font-semibold leading-6 text-gray-900">Log in →</a>
-                    )}
+                     {/* Menu items */}
+                     <button className="w-full py-2 text-left hover:bg-gray-100 rounded-md">
+            <a href="/list" className="block pl-4 text-lg font-semibold leading-6 text-gray-900">Hub</a>
+        </button>
+        <button className="w-full py-2 text-left hover:bg-gray-100 rounded-md">
+            <a href="/#" className="block pl-4 text-lg font-semibold leading-6 text-gray-900">Trending</a>
+        </button>
+        <hr className="my-2 border-gray-200" />
+        {user ? (
+            <>
+
+                <button className="w-full py-2 text-left hover:bg-gray-100 rounded-md">
+                    <a href="/addgpt" className="block pl-4 text-lg font-semibold leading-6 text-gray-900">Add GPT</a>
+                </button>
+                <button className="w-full py-2 text-left hover:bg-gray-100 rounded-md">
+                    <a href="/account" className="block pl-4 text-lg font-semibold leading-6 text-gray-900">Account</a>
+                </button>
+                <button className="w-full py-2 text-left hover:bg-gray-100 rounded-md pl-4 text-lg font-semibold leading-6 text-gray-900" onClick={handleLogout}>
+                    Logout
+                </button>
+         
+            </>
+        ) : (
+            <button className="w-full py-2 text-left text-lg font-semibold leading-6 text-gray-900 hover:bg-gray-100 rounded-md">
+                <a href="/login">Log in →</a>
+            </button>
+        )}
                 </div>
             </div>
         </>
